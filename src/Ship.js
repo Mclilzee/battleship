@@ -3,6 +3,7 @@ class Ship {
     this.length = length;
     this.positions = new Array(length);
     this.sunk = false;
+    this.hp = length;
   }
 
   getLength() {
@@ -34,36 +35,19 @@ class Ship {
     }
   }
 
-  hit(positionX, positionY) {
-    if (this.sunk || (!this.positions[0])) {
+  hit() {
+    if (this.sunk) {
       return false;
     }
 
-    const index = this.findIndex(positionX, positionY);
-    if (index !== -1) {
-      this.positions.splice(index, 1);
-      if (this.positions.length <= 0) {
-        this.sunk = true;
-      }
+    this.hp--;
 
-      return true;
+    if (this.hp === 0) {
+      this.sunk = true;
     }
 
-    return false;
-  }
-
-  findIndex(positionX, positionY) {
-    for (let i = 0; i < this.positions.length; i += 1) {
-      if (
-        this.positions[i].positionX === positionX &&
-        this.positions[i].positionY === positionY
-      ) {
-        return i;
-      }
-    }
-
-    return -1;
+    return true;
   }
 }
 
-module.exports = Ship;
+export default Ship;
