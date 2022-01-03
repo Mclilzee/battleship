@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1641186117402" clover="3.2.0">
+  <project timestamp="1641186117402" name="All files">
+    <metrics statements="29" coveredstatements="29" conditionals="15" coveredconditionals="15" methods="7" coveredmethods="7" elements="51" coveredelements="51" complexity="0" loc="29" ncloc="29" packages="1" files="1" classes="1"/>
+    <file name="ship.js" path="/home/mclilzee/repo/battleship/src/ship.js">
+      <metrics statements="29" coveredstatements="29" conditionals="15" coveredconditionals="15" methods="7" coveredmethods="7"/>
+      <line num="3" count="8" type="stmt"/>
+      <line num="4" count="8" type="stmt"/>
+      <line num="5" count="8" type="stmt"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="13" count="4" type="stmt"/>
+      <line num="17" count="2" type="stmt"/>
+      <line num="21" count="7" type="cond" truecount="2" falsecount="0"/>
+      <line num="22" count="5" type="stmt"/>
+      <line num="23" count="5" type="stmt"/>
+      <line num="24" count="17" type="stmt"/>
+      <line num="25" count="17" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
+      <line num="30" count="2" type="stmt"/>
+      <line num="31" count="11" type="stmt"/>
+      <line num="32" count="11" type="stmt"/>
+      <line num="38" count="13" type="cond" truecount="4" falsecount="0"/>
+      <line num="39" count="1" type="stmt"/>
+      <line num="42" count="12" type="stmt"/>
+      <line num="43" count="12" type="cond" truecount="2" falsecount="0"/>
+      <line num="44" count="8" type="stmt"/>
+      <line num="45" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="46" count="1" type="stmt"/>
+      <line num="49" count="8" type="stmt"/>
+      <line num="52" count="4" type="stmt"/>
+      <line num="56" count="12" type="stmt"/>
+      <line num="57" count="28" type="cond" truecount="2" falsecount="0"/>
+      <line num="61" count="8" type="stmt"/>
+      <line num="65" count="4" type="stmt"/>
+      <line num="69" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
