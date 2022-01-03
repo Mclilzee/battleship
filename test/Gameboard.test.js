@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays */
 import { expect, test } from "@jest/globals";
 import Gameboard from "../src/Gameboard";
 
@@ -66,4 +67,23 @@ test("check board changes", () => {
   gameboard.positionShip(3, 0, "Y", 1);
   gameboard.positionShip(4, 1, "Y", 4);
   expect(gameboard.getBoard()).toEqual(board);
+});
+
+test("hit or miss", () => {
+  const gameboard = new Gameboard();
+
+  gameboard.positionShip(0, 0, "X", 0);
+
+  expect(gameboard.ships.length).toBe(5);
+  expect(gameboard.getBoard()[0]).toEqual([0, 0, 0, 0, 0, , , , , ,]);
+  expect(gameboard.recieveAttack(0, 0)).toBe(true);
+  expect(gameboard.getBoard()[0]).toEqual(["X", 0, 0, 0, 0, , , , , ,]);
+  expect(gameboard.recieveAttack(0, 0)).toBe(false);
+  expect(gameboard.recieveAttack(0, 4)).toBe(true);
+  expect(gameboard.recieveAttack(1, 2)).toBe(false);
+  expect(gameboard.recieveAttack(0, 2)).toBe(true);
+  expect(gameboard.recieveAttack(0, 3)).toBe(true);
+  expect(gameboard.recieveAttack(0, 1)).toBe(true);
+  expect(gameboard.getBoard()[0]).toEqual(["X", "X", "X", "X", "X", , , , , ,]);
+  expect(gameboard.ships.length).toBe(4);
 });

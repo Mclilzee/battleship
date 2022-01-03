@@ -2,6 +2,7 @@ import Ship from "./Ship";
 
 class Gameboard {
   constructor() {
+    this.missedShots = 0;
     this.board = new Array(10);
     for (let i = 0; i < this.board.length; i++) {
       this.board[i] = new Array(10);
@@ -18,6 +19,14 @@ class Gameboard {
 
   getBoard() {
     return this.board;
+  }
+
+  areShipsSunk() {
+    if (this.ships.length <= 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   positionShip(row, column, oriantation = "X", shipIndex) {
@@ -39,12 +48,27 @@ class Gameboard {
     return false;
   }
 
+  recieveAttack(row, column) {
+    const shipIndex = this.board[row][column];
+    if (isNaN(shipIndex)) {
+      this.missedShots++;
+      return false;
+    }
+    this.board[row][column] = "X";
+    const ship = this.ships[shipIndex];
+
+    ship.hit();
+
+    if (ship.isSunk()) {
+      this.ships.splice(shipIndex, 1);
+    }
+
+    return true;
+  }
+
   isSpaceAvailable(row, column, shipSize, oriantation) {
     if (oriantation === "X") {
-      if (
-        this.board.length < column + shipSize ||
-        this.board.length < row
-      ) {
+      if (this.board.length < column + shipSize || this.board.length < row) {
         return false;
       }
 
@@ -54,10 +78,7 @@ class Gameboard {
         }
       }
     } else {
-      if (
-        this.board.length < row + shipSize ||
-        this.board.length < column
-      ) {
+      if (this.board.length < row + shipSize || this.board.length < column) {
         return false;
       }
       for (let i = row; i < shipSize + row; i++) {
