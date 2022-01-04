@@ -7,5 +7,23 @@
     <script src="main.js" defer="defer"></script>
     <title>Battleship</title>
   </head>
-  <body></body>
+  <body>
+    <div class="formContainer">
+      <form>
+        <label>Choose your name:</label>
+        <input
+          name="name"
+          type="text"
+          placeholder="name"
+          autocomplete="off"
+          required="true"
+        />
+        <input type="submit" value="Confirm" />
+      </form>
+    </div>
+    <h1 id="battleShipTitle">Battle Ships</h1>
+    <div class="playingField">
+      <div class="playersContainer"></div>
+    </div>
+  </body>
 </html>
