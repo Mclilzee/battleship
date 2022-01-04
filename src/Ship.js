@@ -3,6 +3,15 @@ class Ship {
     this.length = length;
     this.sunk = false;
     this.hp = length;
+    this.position;
+  }
+
+  setPosition(position) {
+    this.position = position;
+  }
+
+  getPosition() {
+    return this.position;
   }
 
   getLength() {
