@@ -6,11 +6,18 @@ class Player {
     this.score = 0;
     this.gameBoard = new Gameboard();
     this.fleetSize = this.gameBoard.getFleetSize();
-    this.shipsPositions = 0;
+  }
+
+  getBoardSize() {
+    return this.gameBoard.getBoardSize();
+  }
+  
+  setName(name) {
+    this.name = name;
   }
 
   fillBoardRandomly() {
-    let shipIndex = this.shipsPositions;
+    let shipIndex = 0;
     const boardSize = this.gameBoard.getBoardSize();
     const oriantations = ["X", "Y"];
     while (shipIndex < this.fleetSize) {
@@ -25,11 +32,7 @@ class Player {
   }
 
   positionShip(row, column, oriantation, index) {
-    if (this.gameBoard.positionShip(row, column, oriantation, index)) {
-      this.shipsPositions++;
-      return true;
-    }
-    return false;
+    return this.gameBoard.positionShip(row, column, oriantation, index);
   }
 }
 
