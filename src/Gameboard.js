@@ -28,6 +28,15 @@ class Gameboard {
     return shipsPositions;
   }
 
+  getShipsSizes() {
+    const shipsSizes = [];
+    for (let i = 0; i < this.ships.length; i++) {
+      shipsSizes.push({ index: i, size: this.ships[i].getLength() });
+    }
+
+    return shipsSizes;
+  }
+
   getFleetSize() {
     return this.ships.length;
   }

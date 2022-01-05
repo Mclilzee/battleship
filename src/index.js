@@ -5,17 +5,60 @@ import { gameField, setPlayerName } from "./createDOM";
 const player = new Player("Player");
 const AI = new Player("AI Opponent");
 
+let shipIndex = 0;
+
+let ships = [
+  { index: 0, place: false },
+  { index: 1, placed: false },
+  { index: 2, placed: false },
+  { index: 3, placed: false },
+  { index: 4, placed: false },
+];
+
 let currentPlayer = player;
 
 gameField(player, AI);
 AI.fillBoardRandomly();
-player.fillBoardRandomly();
 
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
   setPlayerName(e.target.name.value);
 
   document.querySelector(".formContainer").classList.add("hidden");
+});
+
+document.querySelector(".changePlayerName").addEventListener("click", () => {
+  document.querySelector(".formContainer").classList.remove("hidden");
+});
+const restartButton = document.querySelector(".restartButton");
+const startButton = document.querySelector(".startButton");
+const hintMessage = document.querySelector(".hintMessage");
+
+startButton.addEventListener("click", () => {
+  if (!shipsReady()) {
+    alert("You need to place all the ships before you can start");
+    return;
+  }
+  document.querySelector(".playersContainer").classList.remove("gamePaused");
+  hintMessage.classList.add("hidden");
+  startButton.classList.add("hidden");
+  restartButton.classList.remove("hidden");
+  document.querySelector(".shipsContainerDiv").classList.add("hidden");
+
+  document.querySelectorAll(".playerCell").forEach(cell => cell.classList.add("clicked"));
+});
+
+restartButton.addEventListener("click", () => {
+  document.querySelector(".playersContainer").classList.add("gamePaused");
+
+  hintMessage.classList.remove("hidden");
+  startButton.classList.remove("hidden");
+  restartButton.classList.add("hidden");
+  document.querySelector(".shipsContainerDiv").classList.remove("hidden");
+  document.querySelectorAll(".playerCell").forEach(cell => cell.classList.remove("clicked"));
+
+
+  restartGame();
 });
 
 document.querySelector(".AIGameboard").addEventListener("click", (e) => {
@@ -78,6 +121,9 @@ function attack(targetCell, cellName, result) {
 
 function showPlayerShips() {
   for (let positions of player.getShipsPositions()) {
+    if (!positions) {
+      return;
+    }
     for (let position of positions) {
       const cell = document.getElementById(
         `playerCell ${position[0]} ${position[1]}`,
@@ -87,12 +133,43 @@ function showPlayerShips() {
   }
 }
 
-function gameStart () {
-  document.querySelector(".playersContainer").classList.remove("gamePaused");
-
+function restartGame() {
+  document.querySelectorAll(".cell").forEach((cell) => {
+    cell.classList.remove("sunk");
+    cell.classList.remove("hit");
+    cell.classList.remove("miss");
+    cell.classList.remove("ship");
+    cell.classList.remove("clicked");
+    cell.textContent = "";
+    player.resetBoard();
+    AI.resetBoard();
+    AI.fillBoardRandomly();
+    markShips(false);
+  });
 }
 
-gameStart();
+function shipsReady() {
+  for (let ship of ships) {
+    if (!ship.placed) {
+      return false;
+    }
+  }
 
-showPlayerShips();
+  return true;
+}
 
+function markShips(boolean) {
+  for (let ship of ships) {
+    ship.placed = boolean;
+  }
+}
+
+
+function placeShips(row, column, shipIndex, oriantation) {
+  player.positionShip(row, column, oriantation, shipIndex);
+  ships[shipIndex].placed = true;
+  showPlayerShips();
+}
+
+player.fillBoardRandomly();
+markShips(true);
