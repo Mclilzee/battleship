@@ -16,7 +16,7 @@ body {
 
 button {
   font-weight: bolder;
-  height: 30px;
+  padding: 10px;
 }
 
 button:hover {
@@ -123,13 +123,11 @@ form {
 
 .shipIconX {
   display: flex;
-  height: 30px;
 }
 
 shipIconY {
   display: flex;
   flex-direction: column;
-  width: 30px;
 }
 
 .shipIconCell {
@@ -137,6 +135,14 @@ shipIconY {
   height: 20px;
   border: solid black 1px;
   background-color: wheat;
+}
+
+.shipIcon:hover {
+  transform: scale(120%);
+}
+
+.chosen {
+  border: solid greenyellow 3px;
 }
 
 .gamePaused {
@@ -187,10 +193,8 @@ shipIconY {
 }
 
 #changeOriantationButton,
-#randomButton {
-  pointer-events: visible;
-}
-
-.playerCell {
+#randomButton,
+.playerCell,
+.shipIcon {
   pointer-events: visible;
 }

@@ -5,7 +5,8 @@ import { gameField, setPlayerName } from "./createDOM";
 const player = new Player("Player");
 const AI = new Player("AI Opponent");
 
-let shipIndex = 0;
+let shipIndex = -1;
+let oriantation = "X";
 
 let ships = [
   { index: 0, place: false },
@@ -45,7 +46,9 @@ startButton.addEventListener("click", () => {
   restartButton.classList.remove("hidden");
   document.querySelector(".shipsContainerDiv").classList.add("hidden");
 
-  document.querySelectorAll(".playerCell").forEach(cell => cell.classList.add("clicked"));
+  document
+    .querySelectorAll(".playerCell")
+    .forEach((cell) => cell.classList.add("clicked"));
 });
 
 restartButton.addEventListener("click", () => {
@@ -55,10 +58,32 @@ restartButton.addEventListener("click", () => {
   startButton.classList.remove("hidden");
   restartButton.classList.add("hidden");
   document.querySelector(".shipsContainerDiv").classList.remove("hidden");
-  document.querySelectorAll(".playerCell").forEach(cell => cell.classList.remove("clicked"));
-
+  document
+    .querySelectorAll(".playerCell")
+    .forEach((cell) => cell.classList.remove("clicked"));
 
   restartGame();
+});
+
+const allShips = document.querySelectorAll(".shipIcon");
+allShips.forEach((ship) => {
+  ship.addEventListener("click", () => {
+    allShips.forEach((ship) => ship.classList.remove("chosen"));
+
+    shipIndex = Number(ship.id.split(" ")[1]);
+    ship.classList.add("chosen");
+  });
+});
+
+document.querySelector(".playerGameboard").addEventListener("click", (e) => {
+  if (shipIndex === -1) {
+    return;
+  }
+  const cords = e.target.id.split(" ");
+  const row = Number(cords[1]);
+  const column = Number(cords[2]);
+
+  placeShips(row, column, shipIndex, oriantation);
 });
 
 document.querySelector(".AIGameboard").addEventListener("click", (e) => {
@@ -120,6 +145,9 @@ function attack(targetCell, cellName, result) {
 }
 
 function showPlayerShips() {
+  document.querySelectorAll(".cell").forEach((cell) => {
+    cell.classList.remove("ship");
+  });
   for (let positions of player.getShipsPositions()) {
     if (!positions) {
       return;
@@ -164,12 +192,9 @@ function markShips(boolean) {
   }
 }
 
-
 function placeShips(row, column, shipIndex, oriantation) {
-  player.positionShip(row, column, oriantation, shipIndex);
-  ships[shipIndex].placed = true;
-  showPlayerShips();
+  if (player.positionShip(row, column, oriantation, shipIndex)) {
+    ships[shipIndex].placed = true;
+    showPlayerShips();
+  }
 }
-
-player.fillBoardRandomly();
-markShips(true);

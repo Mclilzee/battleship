@@ -22,7 +22,9 @@ class Gameboard {
   getShipsPositions() {
     const shipsPositions = [];
     for (let ship of this.ships) {
-      shipsPositions.push(ship.getPosition());
+      if (ship.getPosition()) {
+        shipsPositions.push(ship.getPosition());
+      }
     }
 
     return shipsPositions;
@@ -53,11 +55,25 @@ class Gameboard {
     }
   }
 
+  removePreviousShip(ship) {
+    for (let cords of ship.getPosition()) {
+      const row = cords[0];
+      const column = cords[1];
+      delete this.board[row][column];
+    }
+  }
+
   positionShip(row, column, oriantation = "X", shipIndex) {
     const ship = this.ships[shipIndex];
     const shipSize = ship.getLength();
     const shipPosition = new Set();
     if (this.isSpaceAvailable(row, column, shipSize, oriantation)) {
+      const cords = ship.getPosition();
+
+      if (cords) {
+        this.removePreviousShip(ship);
+      }
+
       if (oriantation === "X") {
         for (let i = column; i < column + shipSize; i++) {
           this.board[row][i] = shipIndex;

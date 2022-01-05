@@ -68,12 +68,12 @@ function createShipsIcons(ships) {
   shipsContainerDiv.classList.add("shipsContainerDiv");
   const shipsContainer = document.createElement("div");
   shipsContainer.classList.add("shipsContainer");
-  shipsContainer.classList.add("shipsContainerX");
+  shipsContainer.classList.add("shipsContainerY");
 
   for (let ship of ships) {
     const shipElement = document.createElement("div");
     shipElement.classList.add("shipIcon");
-    shipElement.classList.add("shipIconY");
+    shipElement.classList.add("shipIconX");
     shipElement.id = "shipIndex " + ship.index;
     for (let i = 0; i < ship.size; i++) {
       const cell = document.createElement("div");
