@@ -20,9 +20,9 @@ class Gameboard {
   }
 
   getShipsPositions() {
-    const shipsPositions = {};
-    for (let i = 0; i < this.ships.length; i++) {
-      shipsPositions[`${i}`] = this.ships[i].getPosition();
+    const shipsPositions = [];
+    for (let ship of this.ships) {
+      shipsPositions.push(ship.getPosition());
     }
 
     return shipsPositions;
@@ -57,7 +57,7 @@ class Gameboard {
       } else {
         for (let i = row; i < row + shipSize; i++) {
           this.board[i][column] = shipIndex;
-          shipPosition.add([row, i]);
+          shipPosition.add([i, column]);
         }
       }
 
@@ -83,8 +83,7 @@ class Gameboard {
     ship.hit();
 
     if (ship.isSunk()) {
-      this.ships.splice(shipIndex, 1);
-      return ship.getPosition;
+      return ship.getPosition();
     }
 
     return 1;
@@ -98,7 +97,6 @@ class Gameboard {
         return true;
       }
     }
-
     return false;
   }
 

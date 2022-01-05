@@ -8,10 +8,21 @@ class Player {
     this.fleetSize = this.gameBoard.getFleetSize();
   }
 
+  getShipsPositions() {
+    return this.gameBoard.getShipsPositions();
+  }
+  attack(row, column) {
+    return this.gameBoard.recieveAttack(row, column);
+  }
+
+  resetBoard() {
+    this.gameBoard = new Gameboard();
+  }
+
   getBoardSize() {
     return this.gameBoard.getBoardSize();
   }
-  
+
   setName(name) {
     this.name = name;
   }

@@ -82,5 +82,5 @@ test("hit or miss", () => {
   expect(gameboard.recieveAttack(0, 2)).toBe(1);
   expect(gameboard.recieveAttack(0, 3)).toBe(1);
   expect(gameboard.recieveAttack(0, 1)).not.toBe(1);
-  expect(gameboard.ships.length).toBe(4);
+  expect(gameboard.ships.length).toBe(5);
 });

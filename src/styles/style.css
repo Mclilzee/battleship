@@ -68,6 +68,14 @@ form {
   height: 50px;
   width: 50px;
   border: solid 0.2px black;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gamePaused {
+  pointer-events: none;
 }
 
 .gameboard {
@@ -77,6 +85,34 @@ form {
   background-color: white;
 }
 
+.AICell:not(.clicked):hover {
+  background-color: rgba(48, 238, 0, 0.514);
+}
+
+.clicked {
+  cursor: not-allowed;
+}
+
+.ship {
+  background-color: yellow;
+}
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: green;
+}
+
+.sunk {
+  background-color: rgb(145, 138, 211);
+}
+
 .row {
   display: flex;
+}
+
+#gameStarted {
+  cursor: not-allowed;
 }
