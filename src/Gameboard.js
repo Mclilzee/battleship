@@ -21,9 +21,11 @@ class Gameboard {
 
   getShipsPositions() {
     const shipsPositions = [];
-    for (let ship of this.ships) {
+
+    for (let i = 0; i < this.ships.length; i++) {
+      const ship = this.ships[i];
       if (ship.getPosition()) {
-        shipsPositions.push(ship.getPosition());
+        shipsPositions.push({ index: i, cords: ship.getPosition() });
       }
     }
 
@@ -67,7 +69,7 @@ class Gameboard {
     const ship = this.ships[shipIndex];
     const shipSize = ship.getLength();
     const shipPosition = new Set();
-    if (this.isSpaceAvailable(row, column, shipSize, oriantation)) {
+    if (this.isSpaceAvailable(row, column, shipSize, oriantation, shipIndex)) {
       const cords = ship.getPosition();
 
       if (cords) {
@@ -125,14 +127,14 @@ class Gameboard {
     return false;
   }
 
-  isSpaceAvailable(row, column, shipSize, oriantation) {
+  isSpaceAvailable(row, column, shipSize, oriantation, index) {
     if (oriantation === "X") {
       if (this.board.length < column + shipSize || this.board.length < row) {
         return false;
       }
 
       for (let i = column; i < shipSize + column; i++) {
-        if (!isNaN(this.board[row][i])) {
+        if (!isNaN(this.board[row][i]) && this.board[row][i] !== index) {
           return false;
         }
       }
@@ -141,7 +143,7 @@ class Gameboard {
         return false;
       }
       for (let i = row; i < shipSize + row; i++) {
-        if (!isNaN(this.board[i][column])) {
+        if (!isNaN(this.board[i][column]) && this.board[i][column] !== index) {
           return false;
         }
       }

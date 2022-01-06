@@ -1,12 +1,12 @@
 function gameField(firstPlayer, secondPlayer) {
   const playerContainer = document.querySelector(".playersContainer");
-  playerContainer.classList.add("gamePaused");
 
   const firstPlayerContainer = document.createElement("div");
   firstPlayerContainer.classList.add("playerContent");
 
   const secondPlayerContainer = document.createElement("div");
-  secondPlayerContainer.classList.add("playerContent");
+  secondPlayerContainer.classList.add("AIContent");
+  secondPlayerContainer.classList.add("notAllowed");
 
   const firstPlayerName = document.createElement("h2");
   firstPlayerName.id = "playerName";
@@ -29,6 +29,7 @@ function gameField(firstPlayer, secondPlayer) {
 
   const AIGameboard = createGameBoard(secondPlayer.getBoardSize(), "AICell");
   AIGameboard.classList.add("AIGameboard");
+  AIGameboard.classList.add("locked");
 
   secondPlayerContainer.appendChild(AIGameboard);
 

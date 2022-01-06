@@ -62,8 +62,7 @@ form {
 }
 
 .hidden {
-  width: 0;
-  height: 0;
+  transform: scale(0%);
   opacity: 0;
   pointer-events: none;
 }
@@ -80,7 +79,8 @@ form {
   gap: 30px;
 }
 
-.playerContent {
+.playerContent,
+.AIContent {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,6 +102,7 @@ form {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  width: 13%;
 }
 
 .shipsContainerX {
@@ -145,10 +146,6 @@ shipIconY {
   border: solid greenyellow 3px;
 }
 
-.gamePaused {
-  pointer-events: none;
-}
-
 .gameboard {
   display: flex;
   flex-direction: column;
@@ -160,9 +157,6 @@ shipIconY {
   background-color: rgba(48, 238, 0, 0.514);
 }
 
-.playerCell:not(.clicked):hover {
-  background-color: rgba(48, 238, 0, 0.514);
-}
 
 .clicked {
   cursor: not-allowed;
@@ -188,13 +182,18 @@ shipIconY {
   display: flex;
 }
 
-#gameStarted {
+.notAllowed {
   cursor: not-allowed;
 }
 
-#changeOriantationButton,
-#randomButton,
-.playerCell,
-.shipIcon {
-  pointer-events: visible;
+.locked {
+  pointer-events: none;
+}
+
+.greenHover {
+  background-color: rgba(48, 238, 0, 0.514);
+}
+
+.redHover {
+  background-color: red;
 }

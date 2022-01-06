@@ -21,6 +21,36 @@ let currentPlayer = player;
 gameField(player, AI);
 AI.fillBoardRandomly();
 
+document
+  .getElementById("changeOriantationButton")
+  .addEventListener("click", () => {
+    if (oriantation === "X") {
+      oriantation = "Y";
+      document
+        .querySelector(".shipsContainerY")
+        .classList.replace("shipsContainerY", "shipsContainerX");
+
+      document.querySelectorAll(".shipIconX").forEach((shipIcon) => {
+        shipIcon.classList.replace("shipIconX", "shipIconY");
+      });
+    } else {
+      oriantation = "X";
+      document
+        .querySelector(".shipsContainerX")
+        .classList.replace("shipsContainerX", "shipsContainerY");
+
+      document.querySelectorAll(".shipIconY").forEach((shipIcon) => {
+        shipIcon.classList.replace("shipIconY", "shipIconX");
+      });
+    }
+  });
+
+document.getElementById("randomButton").addEventListener("click", () => {
+  player.fillBoardRandomly();
+  markShips(true);
+  showPlayerShips();
+});
+
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
   setPlayerName(e.target.name.value);
@@ -40,24 +70,30 @@ startButton.addEventListener("click", () => {
     alert("You need to place all the ships before you can start");
     return;
   }
-  document.querySelector(".playersContainer").classList.remove("gamePaused");
+  document.querySelector(".AIGameboard").classList.remove("locked");
+  document.querySelector(".AIContent").classList.remove("notAllowed");
+
+  document.querySelector(".playerGameboard").classList.add("locked");
+  document.querySelector(".playerContent").classList.add("notAllowed");
+
   hintMessage.classList.add("hidden");
   startButton.classList.add("hidden");
   restartButton.classList.remove("hidden");
   document.querySelector(".shipsContainerDiv").classList.add("hidden");
-
-  document
-    .querySelectorAll(".playerCell")
-    .forEach((cell) => cell.classList.add("clicked"));
 });
 
 restartButton.addEventListener("click", () => {
-  document.querySelector(".playersContainer").classList.add("gamePaused");
+  document.querySelector(".AIGameboard").classList.add("locked");
+  document.querySelector(".AIContent").classList.add("notAllowed");
+
+  document.querySelector(".playerGameboard").classList.remove("locked");
+  document.querySelector(".playerContent").classList.remove("notAllowed");
 
   hintMessage.classList.remove("hidden");
   startButton.classList.remove("hidden");
   restartButton.classList.add("hidden");
   document.querySelector(".shipsContainerDiv").classList.remove("hidden");
+
   document
     .querySelectorAll(".playerCell")
     .forEach((cell) => cell.classList.remove("clicked"));
@@ -86,9 +122,82 @@ document.querySelector(".playerGameboard").addEventListener("click", (e) => {
   placeShips(row, column, shipIndex, oriantation);
 });
 
+document
+  .querySelector(".playerGameboard")
+  .addEventListener("mouseover", (e) => {
+    if (shipIndex === -1) {
+      return;
+    }
+    const cords = e.target.id.split(" ");
+    const row = Number(cords[1]);
+    const column = Number(cords[2]);
+    const shipSize = player.gameBoard.ships[shipIndex].getLength();
+    const cellsArray = [];
+    let color = "greenHover";
+
+    document.querySelectorAll(".playerCell").forEach((cell) => {
+      cell.classList.remove("greenHover");
+      cell.classList.remove("redHover");
+    });
+
+    if (oriantation === "X") {
+      for (let i = column; i < column + shipSize; i++) {
+        if (i >= player.getBoardSize()) {
+          color = "redHover";
+          break;
+        }
+
+        if (checkIfShipBlocked(row, i)) {
+          color = "redHover";
+        }
+
+        const cell = document.getElementById(`playerCell ${row} ${i}`);
+        cellsArray.push(cell);
+      }
+    } else {
+      for (let i = row; i < row + shipSize; i++) {
+        if (i >= player.getBoardSize()) {
+          color = "redHover";
+          break;
+        }
+
+        if (checkIfShipBlocked(i, column)) {
+          color = "redHover";
+        }
+
+        const cell = document.getElementById(`playerCell ${i} ${column}`);
+        cellsArray.push(cell);
+      }
+    }
+
+    cellsArray.forEach((cell) => {
+      cell.classList.add(color);
+    });
+  });
+
 document.querySelector(".AIGameboard").addEventListener("click", (e) => {
   attackAI(e.target, "AICell");
 });
+
+function checkIfShipBlocked(row, column) {
+  const placedShips = player
+    .getShipsPositions()
+    .filter((ship) => ship.index !== shipIndex)
+    .map((ship) => ship.cords);
+
+  for (let cords of placedShips) {
+    for (let cord of cords) {
+      const x = cord[0];
+      const y = cord[1];
+
+      if (x === row && y === column) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
 
 function attackAI(targetCell, cellName) {
   if (targetCell.classList[0] === "cell") {
@@ -148,16 +257,14 @@ function showPlayerShips() {
   document.querySelectorAll(".cell").forEach((cell) => {
     cell.classList.remove("ship");
   });
-  for (let positions of player.getShipsPositions()) {
-    if (!positions) {
-      return;
-    }
-    for (let position of positions) {
+
+  for (let shipObject of player.getShipsPositions()) {
+    shipObject.cords.forEach((position) => {
       const cell = document.getElementById(
         `playerCell ${position[0]} ${position[1]}`,
       );
       cell.classList.add("ship");
-    }
+    });
   }
 }
 
