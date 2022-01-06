@@ -18,6 +18,8 @@ let ships = [
 
 let currentPlayer = player;
 
+let precisionMoves = [];
+
 gameField(player, AI);
 AI.fillBoardRandomly();
 
@@ -220,13 +222,31 @@ function attackPlayer() {
     Math.random() * player.gameBoard.availableMoves.length,
   );
 
-  const cords = player.gameBoard.availableMoves[index];
-  const row = cords[0];
-  const column = cords[1];
+  const randomCords = player.gameBoard.availableMoves[index];
 
-  const result = player.attack(row, column);
+  let result = -1;
+  let row;
+  let column;
+
+  while (result === -1 && precisionMoves.length > 0) {
+    let cords = precisionMoves.pop();
+    row = cords[0];
+    column = cords[1];
+
+    result = player.attack(row, column);
+  }
+
+  if (result === -1) {
+    row = randomCords[0];
+    column = randomCords[1];
+    result = player.attack(row, column);
+  }
+
   const cell = document.getElementById(`playerCell ${row} ${column}`);
   attack(cell, "playerCell", result);
+  if (result === 1) {
+    presitionScanner(row, column, cell);
+  }
 
   document.querySelector(".AIGameboard").classList.remove("locked");
   document.querySelector(".AIContent").classList.remove("notAllowed");
@@ -276,6 +296,42 @@ function attack(targetCell, cellName, result) {
   }
 
   targetCell.classList.add("clicked");
+}
+
+function presitionScanner(row, column) {
+  const size = player.getBoardSize();
+
+  if (row + 1 < size && row - 1 > 0) {
+    const above = document.getElementById(`playerCell ${row + 1} ${column}`);
+    const bellow = document.getElementById(`playerCell ${row - 1} ${column}`);
+
+    if (above.classList.contains("hit") || bellow.classList.contains("hit")) {
+      for (let i = row - 1; i <= row + 1; i++) {
+        precisionMoves.push([i, column]);
+      }
+
+      return;
+    }
+  }
+
+  if (column + 1 < size && column - 1 > 0) {
+    const above = document.getElementById(`playerCell ${row} ${column + 1}`);
+    const bellow = document.getElementById(`playerCell ${row} ${column - 1}`);
+
+    if (above.classList.contains("hit") || bellow.classList.contains("hit")) {
+      for (let i = column - 1; i <= column + 1; i++) {
+        precisionMoves.push([row, i]);
+      }
+
+      return;
+    }
+  }
+
+  for (let i = row - 1; i <= row + 1; i++) {
+    for (let j = column - 1; j <= column + 1; j++) {
+      precisionMoves.push([i, j]);
+    }
+  }
 }
 
 function showPlayerShips() {
