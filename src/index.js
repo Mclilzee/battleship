@@ -327,11 +327,10 @@ function presitionScanner(row, column) {
     }
   }
 
-  for (let i = row - 1; i <= row + 1; i++) {
-    for (let j = column - 1; j <= column + 1; j++) {
-      precisionMoves.push([i, j]);
-    }
-  }
+  precisionMoves.push([row - 1, column]);
+  precisionMoves.push([row, column - 1]);
+  precisionMoves.push([row, column + 1]);
+  precisionMoves.push([row + 1, column]);
 }
 
 function showPlayerShips() {
