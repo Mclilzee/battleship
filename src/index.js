@@ -85,10 +85,6 @@ startButton.addEventListener("click", () => {
   startButton.classList.add("hidden");
   restartButton.classList.remove("hidden");
   document.querySelector(".shipsContainerDiv").classList.add("hidden");
-
-  for (let i = 0; i < 100; i++) {
-    attackPlayer();
-  }
 });
 
 restartButton.addEventListener("click", () => {
@@ -114,6 +110,7 @@ document.querySelector(".playerGameboard").addEventListener("click", (e) => {
   if (shipIndex === -1) {
     return;
   }
+
   const cords = e.target.id.split(" ");
   const row = Number(cords[1]);
   const column = Number(cords[2]);
@@ -176,7 +173,11 @@ document
   });
 
 document.querySelector(".AIGameboard").addEventListener("click", (e) => {
+  if (e.target.classList.contains("clicked")) {
+    return;
+  }
   attackAI(e.target, "AICell");
+  attackPlayer();
 });
 
 function checkIfShipBlocked(row, column) {
@@ -212,6 +213,9 @@ function attackAI(targetCell, cellName) {
 }
 
 function attackPlayer() {
+  document.querySelector(".AIGameboard").classList.add("locked");
+  document.querySelector(".AIContent").classList.add("notAllowed");
+
   const index = Math.floor(
     Math.random() * player.gameBoard.availableMoves.length,
   );
@@ -223,6 +227,9 @@ function attackPlayer() {
   const result = player.attack(row, column);
   const cell = document.getElementById(`playerCell ${row} ${column}`);
   attack(cell, "playerCell", result);
+
+  document.querySelector(".AIGameboard").classList.remove("locked");
+  document.querySelector(".AIContent").classList.remove("notAllowed");
 }
 
 function attack(targetCell, cellName, result) {
@@ -260,8 +267,8 @@ function attack(targetCell, cellName, result) {
     if (currentPlayer.isLost()) {
       document.querySelector(".losingAnnouncement").textContent =
         currentPlayer === player
-          ? "Congratulation! you have won"
-          : "AI Has beaten you this time";
+          ? "AI Has beaten you this time :("
+          : "Congratulation! you have won :)";
       document
         .getElementById("losingMessageContainer")
         .classList.remove("hidden");
