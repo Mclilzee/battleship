@@ -35,7 +35,8 @@ button:hover {
   color: beige;
 }
 
-.formContainer {
+.formContainer,
+#losingMessageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,6 +44,21 @@ button:hover {
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.699);
+}
+
+#losingMessage {
+  margin-bottom: 15%;
+  background-color: #214199;
+  padding-top: 20px;
+  border: solid white;
+  width: 20%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  color: white;
+  font-weight: bolder;
 }
 
 form {
@@ -156,7 +172,6 @@ shipIconY {
 .AICell:not(.clicked):hover {
   background-color: rgba(48, 238, 0, 0.514);
 }
-
 
 .clicked {
   cursor: not-allowed;

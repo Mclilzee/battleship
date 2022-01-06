@@ -50,11 +50,13 @@ class Gameboard {
   }
 
   areShipsSunk() {
-    if (this.ships.length <= 0) {
-      return true;
-    } else {
-      return false;
+    for (let ship of this.ships) {
+      if (!ship.isSunk()) {
+        return false;
+      }
     }
+
+    return true;
   }
 
   removePreviousShip(ship) {

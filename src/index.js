@@ -70,6 +70,11 @@ startButton.addEventListener("click", () => {
     alert("You need to place all the ships before you can start");
     return;
   }
+
+  document.querySelectorAll(".playerCell").forEach((cell) => {
+    cell.classList.remove("greenHover");
+    cell.classList.remove("redHover");
+  });
   document.querySelector(".AIGameboard").classList.remove("locked");
   document.querySelector(".AIContent").classList.remove("notAllowed");
 
@@ -80,24 +85,18 @@ startButton.addEventListener("click", () => {
   startButton.classList.add("hidden");
   restartButton.classList.remove("hidden");
   document.querySelector(".shipsContainerDiv").classList.add("hidden");
+
+  for (let i = 0; i < 100; i++) {
+    attackPlayer();
+  }
 });
 
 restartButton.addEventListener("click", () => {
-  document.querySelector(".AIGameboard").classList.add("locked");
-  document.querySelector(".AIContent").classList.add("notAllowed");
+  restartGame();
+});
 
-  document.querySelector(".playerGameboard").classList.remove("locked");
-  document.querySelector(".playerContent").classList.remove("notAllowed");
-
-  hintMessage.classList.remove("hidden");
-  startButton.classList.remove("hidden");
-  restartButton.classList.add("hidden");
-  document.querySelector(".shipsContainerDiv").classList.remove("hidden");
-
-  document
-    .querySelectorAll(".playerCell")
-    .forEach((cell) => cell.classList.remove("clicked"));
-
+document.getElementById("playAgain").addEventListener("click", () => {
+  document.getElementById("losingMessageContainer").classList.add("hidden");
   restartGame();
 });
 
@@ -158,6 +157,7 @@ document
       for (let i = row; i < row + shipSize; i++) {
         if (i >= player.getBoardSize()) {
           color = "redHover";
+          [];
           break;
         }
 
@@ -230,6 +230,12 @@ function attack(targetCell, cellName, result) {
     return;
   }
 
+  if (currentPlayer === player) {
+    currentPlayer = AI;
+  } else {
+    currentPlayer = player;
+  }
+
   if (result === 1) {
     targetCell.classList.add("hit");
     targetCell.textContent = "hit";
@@ -237,6 +243,8 @@ function attack(targetCell, cellName, result) {
     targetCell.classList.add("miss");
     targetCell.textContent = "miss";
   } else {
+    console.log(currentPlayer);
+
     targetCell.classList.add("sunk");
     targetCell.textContent = "sunk";
 
@@ -247,6 +255,16 @@ function attack(targetCell, cellName, result) {
       const cell = document.getElementById(`${cellName} ${row} ${column}`);
       cell.classList.replace("hit", "sunk");
       cell.textContent = "sunk";
+    }
+
+    if (currentPlayer.isLost()) {
+      document.querySelector(".losingAnnouncement").textContent =
+        currentPlayer === player
+          ? "Congratulation! you have won"
+          : "AI Has beaten you this time";
+      document
+        .getElementById("losingMessageContainer")
+        .classList.remove("hidden");
     }
   }
 
@@ -269,6 +287,21 @@ function showPlayerShips() {
 }
 
 function restartGame() {
+  document.querySelector(".AIGameboard").classList.add("locked");
+  document.querySelector(".AIContent").classList.add("notAllowed");
+
+  document.querySelector(".playerGameboard").classList.remove("locked");
+  document.querySelector(".playerContent").classList.remove("notAllowed");
+
+  hintMessage.classList.remove("hidden");
+  startButton.classList.remove("hidden");
+  restartButton.classList.add("hidden");
+  document.querySelector(".shipsContainerDiv").classList.remove("hidden");
+
+  document
+    .querySelectorAll(".playerCell")
+    .forEach((cell) => cell.classList.remove("clicked"));
+
   document.querySelectorAll(".cell").forEach((cell) => {
     cell.classList.remove("sunk");
     cell.classList.remove("hit");

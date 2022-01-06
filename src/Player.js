@@ -8,6 +8,10 @@ class Player {
     this.fleetSize = this.gameBoard.getFleetSize();
   }
 
+  isLost() {
+    return this.gameBoard.areShipsSunk();
+  }
+
   getShipsPositions() {
     return this.gameBoard.getShipsPositions();
   }
