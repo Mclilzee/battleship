@@ -65,7 +65,7 @@ document.querySelector(".changePlayerName").addEventListener("click", () => {
 });
 const restartButton = document.querySelector(".restartButton");
 const startButton = document.querySelector(".startButton");
-const hintMessage = document.querySelector(".hintMessage");
+const hintMessage = document.querySelector(".hint-message");
 
 startButton.addEventListener("click", () => {
   if (!shipsReady()) {

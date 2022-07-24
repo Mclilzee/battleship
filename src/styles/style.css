@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   background-image: url("../assets/ship.jpg");
@@ -15,6 +19,12 @@ body {
   align-items: center;
 }
 
+.header>.hint-message {
+  font-weight: bold;
+  font-size: min(1.3rem, 4.5vw);
+  text-decoration-style: solid;
+}
+
 button {
   font-weight: bolder;
   padding: 10px;
@@ -29,10 +39,10 @@ button:hover {
 }
 
 #battleShipTitle {
-  font-size: 3rem;
+  font-size: min(3rem, 10vw);
   text-align: center;
   margin-top: 0;
-  padding: 30px;
+  padding: 20px;
   color: black;
   font-family: 'Courier New', Courier, monospace;
   text-decoration-line: underline;
@@ -120,22 +130,18 @@ button:hover {
 }
 
 .playersContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  justify-items: center;
   width: 100%;
   justify-content: space-evenly;
   gap: 30px;
 }
 
-.playerContent,
-.AIContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .cell {
-  height: 40px;
-  width: 40px;
+  height: min(40px, 3vw);
+  width: min(40px, 3vw);
   border: solid 0.2px black;
   cursor: pointer;
   display: flex;
@@ -149,7 +155,6 @@ button:hover {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  width: 13%;
 }
 
 .shipsContainerX {
