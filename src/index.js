@@ -60,7 +60,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
   document.querySelector(".formContainer").classList.add("hidden");
 });
 
-document.querySelector(".changePlayerName").addEventListener("click", () => {
+document.querySelector("#playerName").addEventListener("click", () => {
   document.querySelector(".formContainer").classList.remove("hidden");
 });
 const restartButton = document.querySelector(".restartButton");
