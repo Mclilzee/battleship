@@ -16,23 +16,24 @@
       </div>
     </div>
     <div class="formContainer hidden">
-      <form>
-        <label>Choose your name:</label>
+      <form class="name-form">
+        <label class="title">Choose your name</label>
         <input
           name="name"
           type="text"
           placeholder="name"
           autocomplete="off"
           required="true"
+          class="name-field"
         />
-        <input type="submit" value="Confirm" />
+        <input type="submit" value="Confirm" class="confirm-button" />
       </form>
     </div>
     <h1 id="battleShipTitle">Battle Ships</h1>
     <button class="changePlayerName">Change Name</button>
     <div class="header">
       <h3 class="hintMessage">
-        Place your ships and press Start Game to start
+        Place your ships and press Start Game to play
       </h3>
       <button class="startButton">Start Game!</button>
       <button class="restartButton hidden">Restart Game</button>
