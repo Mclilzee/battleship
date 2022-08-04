@@ -90,7 +90,6 @@ function createShipsIcons(ships) {
   oriantationButton.textContent = "Change Oriantation";
 
   const fillRandomlyButton = document.createElement("button");
-  fillRandomlyButton.style.marginTop = "30px";
   fillRandomlyButton.id = "randomButton";
   fillRandomlyButton.textContent = "Place ships Randomly";
 
