@@ -1,7 +1,6 @@
 class Ship {
   constructor(length) {
     this.length = length;
-    this.sunk = false;
     this.hp = length;
     this.position;
   }
@@ -19,19 +18,15 @@ class Ship {
   }
 
   isSunk() {
-    return this.sunk;
+    return this.hp === 0;
   }
 
   hit() {
-    if (this.sunk) {
+    if (this.hp === 0) {
       return false;
     }
 
     this.hp--;
-
-    if (this.hp === 0) {
-      this.sunk = true;
-    }
 
     return true;
   }

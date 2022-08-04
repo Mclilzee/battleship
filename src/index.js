@@ -175,7 +175,8 @@ document
   });
 
 document.querySelector(".AIGameboard").addEventListener("click", (e) => {
-  if (e.target.classList.contains("clicked")) {
+  const cellTarget = e.target.id.includes("AICell");
+  if (e.target.classList.contains("clicked") || !cellTarget) {
     return;
   }
   attackAI(e.target, "AICell");
@@ -264,8 +265,6 @@ function attack(targetCell, cellName, result) {
   } else if (result === 0) {
     targetCell.classList.add("miss");
   } else {
-    console.log(currentPlayer);
-
     targetCell.classList.add("sunk");
 
     for (let cords of result) {
@@ -362,7 +361,6 @@ function restartGame() {
     cell.classList.remove("miss");
     cell.classList.remove("ship");
     cell.classList.remove("clicked");
-    cell.textContent = "";
     player.resetBoard();
     AI.resetBoard();
     AI.fillBoardRandomly();
