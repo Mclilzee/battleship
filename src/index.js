@@ -257,23 +257,16 @@ function attack(targetCell, cellName, result) {
     return;
   }
 
-  if (currentPlayer === player) {
-    currentPlayer = AI;
-  } else {
-    currentPlayer = player;
-  }
+  currentPlayer = currentPlayer === player ? AI : player;
 
   if (result === 1) {
     targetCell.classList.add("hit");
-    targetCell.textContent = "hit";
   } else if (result === 0) {
     targetCell.classList.add("miss");
-    targetCell.textContent = "miss";
   } else {
     console.log(currentPlayer);
 
     targetCell.classList.add("sunk");
-    targetCell.textContent = "sunk";
 
     for (let cords of result) {
       const row = cords[0];
@@ -281,7 +274,6 @@ function attack(targetCell, cellName, result) {
 
       const cell = document.getElementById(`${cellName} ${row} ${column}`);
       cell.classList.replace("hit", "sunk");
-      cell.textContent = "sunk";
     }
 
     if (currentPlayer.isLost()) {
