@@ -10,7 +10,6 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 .header {
@@ -121,7 +120,7 @@ button:hover {
 
 .playersContainer {
   display: grid;
-  grid-template-columns: 3fr auto 3fr;
+  grid-template-columns: 1fr auto 1fr;
   justify-items: center;
   width: 100%;
   gap: 20px;
@@ -154,6 +153,11 @@ button:hover {
   gap: 20px;
 }
 
+.shipsContainerDiv>h4 {
+  font-size: min(1rem, 4vw);
+  font-weight: bolder;
+}
+
 .shipsContainerX {
   display: flex;
   justify-content: center;
@@ -181,8 +185,8 @@ shipIconY {
 }
 
 .shipIconCell {
-  width: 20px;
-  height: 20px;
+  width: min(20px, 3vw);
+  aspect-ratio: 1;
   border: solid black 1px;
   background-color: wheat;
 }
@@ -250,4 +254,11 @@ shipIconY {
   transform: scale(0%);
   opacity: 0;
   pointer-events: none;
+}
+
+@media only screen and (max-width: 500px) {
+
+  .playersContainer {
+    grid-template-columns: 1fr;
+  }
 }
