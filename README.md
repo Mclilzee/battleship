@@ -22,6 +22,7 @@ You will be able to choose your ships strategy, position them, select your name,
 
 ### AI Tactics
 As you can see the AI is not so dumb, the AI will actually choose adjasunt positions to attack your ships properly.
+
 <img src="./examples/ai-shooting.gif" />
 
 # Credits
