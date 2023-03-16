@@ -17,9 +17,6 @@ You will be able to choose your ships strategy, position them, select your name,
 <img src="./examples/change-oriantation.gif" />
 <img src="./examples/auto-placement.gif" />
 
-### Shooting Ship Position
-<img src="./examples/shooting-position.gif" />
-
 ### AI Tactics
 As you can see the AI is not so dumb, the AI will actually choose adjasunt positions to attack your ships properly.
 
