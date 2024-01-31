@@ -3,7 +3,7 @@
 }
 
 html {
-  background-image: url("../assets/ship.jpg");
+  background-image: url("../assets/background.svg");
   background-size: cover;
   background-attachment: fixed;
 }
@@ -24,7 +24,7 @@ body {
   align-items: center;
 }
 
-.header>.hint-message {
+.header > .hint-message {
   font-weight: bold;
   font-size: min(1.3rem, 5vw);
   text-decoration-style: solid;
@@ -46,7 +46,7 @@ button:hover {
   margin-top: 0;
   padding: 20px;
   color: rgb(0, 0, 0);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   text-decoration-line: underline;
 }
 
@@ -76,11 +76,11 @@ button:hover {
   border-radius: 8px;
 }
 
-#losingMessage>h2 {
+#losingMessage > h2 {
   font-size: min(2rem, 3vw);
 }
 
-#losingMessage>h3 {
+#losingMessage > h3 {
   font-size: min(1.5rem, 2vw);
 }
 
@@ -98,13 +98,13 @@ button:hover {
   border-radius: 10px;
 }
 
-.name-form>.title {
+.name-form > .title {
   color: white;
   font-size: min(5vw, 1.4rem);
   letter-spacing: 1px;
 }
 
-.name-form>.name-field {
+.name-form > .name-field {
   width: 60%;
   padding: 5px;
   font-size: 0.8rem;
@@ -112,7 +112,7 @@ button:hover {
   border: none;
 }
 
-.name-form>.confirm-button {
+.name-form > .confirm-button {
   padding: 10px 20px;
   font-size: min(4vw, 0.8rem);
   font-weight: bold;
@@ -123,7 +123,7 @@ button:hover {
   color: white;
 }
 
-.name-form>.confirm-button:hover {
+.name-form > .confirm-button:hover {
   background-color: #8bbb1c;
 }
 
@@ -153,8 +153,6 @@ button:hover {
   cursor: pointer;
 }
 
-
-
 .cell {
   width: min(40px, 3vw);
   aspect-ratio: 1;
@@ -171,7 +169,7 @@ button:hover {
   gap: 5px;
 }
 
-.shipsContainerDiv>h4 {
+.shipsContainerDiv > h4 {
   font-size: min(1rem, 4vw);
   font-weight: bolder;
   text-align: center;
@@ -277,7 +275,6 @@ shipIconY {
 }
 
 @media only screen and (max-width: 750px) {
-
   .playersContainer {
     grid-template-columns: 1fr;
     gap: 0;
@@ -301,3 +298,4 @@ shipIconY {
     width: 4vw;
   }
 }
+
