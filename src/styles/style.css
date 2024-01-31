@@ -14,8 +14,9 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  color: rgb(7, 7, 7);
-  font-weight: bolder;
+  color: white;
+  font-weight: bold;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .header {
@@ -45,7 +46,6 @@ button:hover {
   text-align: center;
   margin-top: 0;
   padding: 20px;
-  color: rgb(0, 0, 0);
   font-family: "Courier New", Courier, monospace;
   text-decoration-line: underline;
 }
